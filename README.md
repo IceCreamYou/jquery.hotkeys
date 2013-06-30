@@ -1,57 +1,68 @@
-#About
-**jQuery Hotkeys** is a plug-in that lets you easily add and remove handlers for keyboard events anywhere in your code supporting almost any key combination.  
+**jQuery Hotkeys** provides easy, human-friendly handling for keyboard input.
 
-This plugin is based off of the plugin by Tzury Bar Yochay: [jQuery.hotkeys](https://github.com/tzuryby/jquery.hotkeys)
+## Usage
 
-The syntax is as follows:
+Bind the `keydown`, `keypress`, or `keyup` events to an element:
 
-    $(expression).bind(types, keys, handler);
-    $(expression).unbind(types, handler);
-    
-    $(document).bind('keydown', 'ctrl+a', fn);
-    
-    // e.g. replace '$' sign with 'EUR'
-    $('input.foo').bind('keyup', '$', function(){
-      this.value = this.value.replace('$', 'EUR');
-    });
-    
-Syntax when wanting to use jQuery's `on()`/`off` methods:
+    $(selector).keypress('ctrl+a down', function(event) {});
+    // OR
+    $(selector).on('keypress', 'ctrl+a down', function(event) {});
 
-    $(expression).on(types, null, keys, handler);
-    $(expression).off(types, handler);
-    
-    $(document).on('keydown', null, 'ctrl+a', fn);
-    
-    // e.g. replace '$' sign with 'EUR'
-    $('input.foo').on('keyup', null, '$', function(){
-      this.value = this.value.replace('$', 'EUR');
-    });     
+Separate key combinations that should trigger the callback with spaces. In the
+examples above, the callback would fire if `ctrl+a` *or* `down` was pressed. In
+the event callback, `event.keyPressed` holds the combination that actually
+triggered the callback.
 
-## Types
-Supported types are `'keydown'`, `'keyup'` and `'keypress'`   
+You can specify keys in combination with the control keys: `alt`, `ctrl`,
+`meta`, and `shift`. If you use multiple control keys in a combination, specify
+them in alphabetical order.
+
+Instead of binding to key events, you can also just call
+`jQuery.hotkeys.areKeysDown()` to determine whether a set of keys is currently
+being pressed, or examine the list of currently pressed keys yourself in
+`jQuery.hotkeys.keysDown`. This is useful if you want to bind to key events for
+all keys since `event.keyPressed` does not exist in this scenario:
+
+    $(selector).keypress(function(event) {});
+
+If you only care about keys that were pressed (and released) instead of which
+keys are being held down, you can call `jQuery.hotkeys.lastKeyPressed()` or
+examine the last 5 keys pressed in `jQuery.hotkeys.lastKeysPressed`.
 
 ## Notes
 
-If you want to use more than one modifiers (e.g. alt+ctrl+z) you should define them by an alphabetical order e.g. alt+ctrl+shift
+Dual licensed under the MIT or GPLv2 licenses.
 
-Hotkeys aren't tracked if you're inside of an input element (unless you explicitly bind the hotkey directly to the input). This helps to avoid conflict with normal user typing.
+Hotkeys aren't tracked if you're inside of an input element (unless you
+explicitly bind the hotkey directly to the input). This helps avoid conflicts
+with normal user typing.
 
-## jQuery Compatibility
+## Compatibility
 
-Works with jQuery 1.4.2 and newer.
+Should work with jQuery 1.4.2 and newer, although new revisions will only be
+tested with jQuery 2.0.2 and newer.
 
-It known to be working with all the major browsers on all available platforms (Win/Mac/Linux)
+Should work with all the major browsers on all major operating systems,
+including mobile devices. Versions of this script have been tested on Windows,
+Mac, and Linux on IE6+, Firefox 1.5+, Chrome 0.2+, Safari 3+, and Opera 9+.
+However, new revisions of this script will only be tested on the last two
+major versions of IE, Firefox, and Chrome.
 
- * IE 6/7/8
- * FF 1.5/2/3
- * Opera-9
- * Safari-3
- * Chrome-0.2
+If you use early versions of jQuery, you will need to bind key events using
+`.bind()` because `.on()` was added later.
 
-### Addendum
+**NOTE:** Firefox is the only major browser that will reliably let you override
+all key shortcuts built into the browser. This won't be a problem for most
+applications, but you should avoid binding to combinations like `ctrl+Q` and
+`alt+F4` because most browsers will still react to those by closing the window.
 
-Firefox is the most liberal one in the manner of letting you capture all short-cuts even those that are built-in in the browser such as `Ctrl-t` for new tab, or `Ctrl-a` for selecting all text. You can always bubble them up to the browser by returning `true` in your handler.
+## Credits
 
-Others, (IE) either let you handle built-in short-cuts, but will add their functionality after your code has executed. Or (Opera/Safari) will *not* pass those events to the DOM at all.
-
-*So, if you bind `Ctrl-Q` or `Alt-F4` and your Safari/Opera window is closed don't be surprised.*
+- [Isaac Sukin](https://github.com/IceCreamYou) wrote this revision
+- [John Resig](https://github.com/jeresig/jquery.hotkeys),
+  [Tzury Bar Yochay](https://github.com/tzuryby/jquery.hotkeys), and
+  [Binny V A](http://www.openjs.com/scripts/events/keyboard_shortcuts/) wrote
+  earlier revisions
+- Changes were integrated from
+  [kwillia](https://github.com/jeresig/jquery.hotkeys/pull/4/files) and
+  [kevingorski](https://github.com/jeresig/jquery.hotkeys/pull/2/files)

@@ -16,7 +16,7 @@
 (function(jQuery){
   /**
    * @class jQuery.hotkeys
-   *   Provides easy, literal handling for keyboard input.
+   *   Provides easy, human-friendly handling for keyboard input.
    *
    * USAGE:
    *
@@ -28,19 +28,30 @@
    *
    *   Separate key combinations that should trigger the callback with spaces.
    *   In the examples above, the callback would fire if `ctrl+a` or `down` was
-   *   pressed. You can specify keys in combination with the control keys: alt,
-   *   ctrl, meta, and shift. In the event callback, `event.keyPressed` holds
-   *   the combination that actually triggered the callback.
+   *   pressed. In the event callback, `event.keyPressed` holds the combination
+   *   that actually triggered the callback.
+   *
+   * - You can specify keys in combination with the control keys: `alt`,
+   *   `ctrl`, `meta`, and `shift`. If you use multiple control keys in a
+   *   combination, specify them in alphabetical order.
    *
    * - Instead of binding to key events, you can also just call
    *   `jQuery.hotkeys.areKeysDown()` to determine whether a set of keys is
    *   currently being pressed, or examine the list of currently pressed keys
-   *   yourself in `jQuery.hotkeys.keysDown`.
+   *   yourself in `jQuery.hotkeys.keysDown`. This is useful if you want to
+   *   bind to key events for all keys since `event.keyPressed` does not exist
+   *   in this scenario:
+   *
+   *       $(selector).keypress(function(event) {});
    *
    * - If you only care about keys that were pressed (and released) instead of
    *   which keys are being held down, you can call
    *   `jQuery.hotkeys.lastKeyPressed()` or examine the last 5 keys pressed in
    *   `jQuery.hotkeys.lastKeysPressed`.
+   *
+   * Hotkeys aren't tracked if you're inside of an input element (unless you
+   * explicitly bind the hotkey directly to the input). This helps avoid
+   * conflicts with normal user typing.
    *
    * NOTE: Firefox is the only major browser that will reliably let you override
    * all key shortcuts built into the browser. This won't be a problem for most
