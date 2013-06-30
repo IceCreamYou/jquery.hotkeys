@@ -40,16 +40,14 @@ with normal user typing.
 ## Compatibility
 
 Should work with jQuery 1.4.2 and newer, although new revisions will only be
-tested with jQuery 2.0.2 and newer.
+tested with jQuery 2.0.2 and newer. If you use early versions of jQuery, use
+`.bind()` instead of `.on()`.
 
 Should work with all the major browsers on all major operating systems,
 including mobile devices. Versions of this script have been tested on Windows,
 Mac, and Linux on IE6+, Firefox 1.5+, Chrome 0.2+, Safari 3+, and Opera 9+.
 However, new revisions of this script will only be tested on the last two
 major versions of IE, Firefox, and Chrome.
-
-If you use early versions of jQuery, you will need to bind key events using
-`.bind()` because `.on()` was added later.
 
 **NOTE:** Firefox is the only major browser that will reliably let you override
 all key shortcuts built into the browser. This won't be a problem for most
