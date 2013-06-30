@@ -3,6 +3,9 @@
  *
  * Dual licensed under the MIT or GPLv2 licenses.
  *
+ * The full project and documentation are available at
+ * https://github.com/IceCreamYou/jquery.hotkeys
+ *
  * Credits:
  * - [Isaac Sukin](https://github.com/IceCreamYou) wrote this revision
  * - [John Resig](https://github.com/jeresig/jquery.hotkeys)
