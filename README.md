@@ -14,7 +14,7 @@ by this implementation.
 
 ## Usage
 
-*Bind the `keydown`, `keypress`, or `keyup` events to an element*:
+**Bind the `keydown`, `keypress`, or `keyup` events to an element**:
 
 ```javascript
 $(selector).keypress('ctrl+a down', function(event) {});
@@ -24,16 +24,16 @@ $(selector).on('keypress', 'ctrl+a down', function(event) {});
 
 Separate key combinations that should trigger the callback with spaces. In the
 examples above, the callback would fire if `ctrl+a` *or* `down` was pressed. In
-the event callback, *`event.keyPressed` holds the combination that actually
-triggered the callback*.
+the event callback, **`event.keyPressed` holds the combination that actually
+triggered the callback**.
 
 You can specify keys in combination with the control keys: `alt`, `ctrl`,
 `meta`, and `shift`. If you use multiple control keys in a combination, specify
 them in alphabetical order.
 
 Instead of binding to key events, you can also just call
-*`jQuery.hotkeys.areKeysDown()` to determine whether a set of keys is currently
-being pressed*:
+**`jQuery.hotkeys.areKeysDown()` to determine whether a set of keys is
+currently being pressed**:
 
 ```javascript
 // true if either the A key or both the B and C keys are currently pressed
@@ -43,9 +43,9 @@ jQuery.hotkeys.areKeysDown('a b+c');
 jQuery.hotkeys.areKeysDown(['a', 'b+c']);
 ```
 
-Additionally, you can *examine the list of currently pressed keys yourself in
-`jQuery.hotkeys.keysDown`*. This is useful if you want to bind to key events for
-all keys since `event.keyPressed` does not exist in this scenario:
+Additionally, you can **examine the list of currently pressed keys yourself in
+`jQuery.hotkeys.keysDown`**. This is useful if you want to bind to key events
+for all keys since `event.keyPressed` does not exist in this scenario:
 
 ```javascript
 // After every keypress, output the keys that are still held down.
@@ -55,9 +55,9 @@ jQuery(selector).keypress(function(event) {
 ```
 
 If you only care about keys that were pressed (and released) instead of which
-keys are being held down, you can call *`jQuery.hotkeys.lastKeyPressed()`
-(which returns a string containing the last key that was pressed)* or examine an
-*array of the last 5 keys pressed in `jQuery.hotkeys.lastKeysPressed`*.
+keys are being held down, you can call **`jQuery.hotkeys.lastKeyPressed()`
+(which returns a string containing the last key that was pressed)** or examine
+an **array of the last 5 keys pressed in `jQuery.hotkeys.lastKeysPressed`**.
 
 ## Notes
 
