@@ -26,7 +26,7 @@
     <p><strong>event.keyPressed:</strong> <span id="keyPressed"></span></p>
   </div>
 
-  <script src="jquery-2.0.2.min.js"></script>
+  <script src="jquery/jquery.min.js"></script>
   <script src="jquery.hotkeys.js"></script>
   <script>
   (function($) {
@@ -42,12 +42,16 @@
       $v.css('opacity', '1').animate({opacity: 0}, 1000);
     }
     $body.keydown(function(e) {
-      e.preventDefault();
+      if (!e.ctrlKey || 'lrt'.indexOf(String.fromCharCode(e.which).toLowerCase()) === -1) {
+        e.preventDefault();
+      }
       $keysDown.text($.hotkeys.keysDown);
       $areKeysDown.text($.hotkeys.areKeysDown('ctrl+shift+a'));
     });
     $body.keyup(function(e) {
-      $keysDown.text('');
+      if (!e.ctrlKey || 'lrt'.indexOf(String.fromCharCode(e.which).toLowerCase()) === -1) {
+        e.preventDefault();
+      }
       $lastKeyPressed.text($.hotkeys.lastKeyPressed());
       $lastKeysPressed.text($.hotkeys.lastKeysPressed);
       $areKeysDown.text($.hotkeys.areKeysDown('ctrl+shift+a'));
@@ -60,7 +64,7 @@
       flash($keyup);
       flash($keyPressed.text(e.keyPressed));
     });
-  })(this.jQuery.noConflict());
+  })(this.jQuery);
   </script>
 </body>
 </html>

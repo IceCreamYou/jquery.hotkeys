@@ -1,0 +1,5 @@
+jQuery 2.1.3
+
+Project:       https://github.com/jquery/jquery
+Homepage:      https://jquery.com/
+Documentation: http://api.jquery.com/
