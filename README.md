@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/IceCreamYou/jquery.hotkeys.svg?branch=master)](https://travis-ci.org/IceCreamYou/jquery.hotkeys)
+
 **jQuery Hotkeys** provides easy, human-friendly handling for keyboard input.
 
 You can:
