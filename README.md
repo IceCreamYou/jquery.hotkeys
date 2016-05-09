@@ -68,14 +68,16 @@ under the MIT license.
 
 All key combinations are case-insensitive ("CTrL+A" is the same as "ctrl+a").
 
-Hotkeys aren't tracked if you're inside of an input element (unless you
-explicitly bind the hotkey directly to the input). This helps avoid conflicts
-with normal user typing.
+Hotkeys aren't tracked when an element that accepts text input has focus
+unless you explicitly bind the hotkeys directly to the element. This helps
+avoid conflicts with normal user typing. (Elements that accept text input
+include &lt;textarea&gt;, &lt;select&gt;, most &lt;input&gt; types, and any
+element with `contentEditable="true"` set.)
 
 ## Compatibility
 
 Should work with jQuery 1.4.2 and newer, although new revisions will only be
-tested with jQuery 2.1 and newer. If you use early versions of jQuery, use
+tested with jQuery 2.2 and newer. If you use early versions of jQuery, use
 `.bind()` instead of `.on()`.
 
 Should work with all the major browsers on all major operating systems,
@@ -101,4 +103,5 @@ applications, but you should avoid binding to combinations like `ctrl+Q` and
   earlier revisions
 - Changes were integrated from
   [kwillia](https://github.com/jeresig/jquery.hotkeys/pull/4/files) and
-  [kevingorski](https://github.com/jeresig/jquery.hotkeys/pull/2/files)
+  [kevingorski](https://github.com/jeresig/jquery.hotkeys/pull/2/files) and
+  [rpocklin](https://github.com/jeresig/jquery.hotkeys/commit/a4cdf9fe939ba6e8821ab5f1286b38000ff9f834)

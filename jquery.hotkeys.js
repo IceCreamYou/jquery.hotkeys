@@ -13,10 +13,11 @@
  * - [Binny V A](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
  * - [kwillia](https://github.com/jeresig/jquery.hotkeys/pull/4/files)
  * - [kevingorski](https://github.com/jeresig/jquery.hotkeys/pull/2/files)
+ * - [rpocklin](https://github.com/jeresig/jquery.hotkeys/commit/a4cdf9fe939ba6e8821ab5f1286b38000ff9f834)
  *
  * @ignore
  */
-(function(jQuery){
+(function(jQuery) {
   /**
    * @class jQuery.hotkeys
    *   Provides easy, human-friendly handling for keyboard input.
@@ -44,7 +45,7 @@
    * because most browsers will still react to those by closing the window.
    */
   jQuery.hotkeys = {
-    version: "0.9",
+    version: '0.9',
 
     // Keys currently held down
     keysDown: [],
@@ -60,24 +61,96 @@
 
     // Charcodes for when String.fromCharCode() doesn't work
     specialKeys: {
-      8: "backspace", 9: "tab", 10: "return", 13: "return", 16: "shift",
-      17: "ctrl", 18: "alt", 19: "pause", 20: "capslock", 27: "esc",
-      32: "space", 33: "pageup", 34: "pagedown", 35: "end", 36: "home",
-      37: "left", 38: "up", 39: "right", 40: "down", 45: "insert", 46: "del",
-      59: ";", 61: "=", 96: "0", 97: "1", 98: "2", 99: "3", 100: "4", 101: "5",
-      102: "6", 103: "7", 104: "8", 105: "9", 106: "*", 107: "+", 109: "-",
-      110: ".", 111 : "/", 112: "f1", 113: "f2", 114: "f3", 115: "f4",
-      116: "f5", 117: "f6", 118: "f7", 119: "f8", 120: "f9", 121: "f10",
-      122: "f11", 123: "f12", 144: "numlock", 145: "scroll", 173: "-",
-      186: ";", 187: "=", 188: ",", 189: "-", 190: ".", 191: "/", 192: "`",
-      219: "[", 220: "\\", 221: "]", 222: "'", 224: "meta"
+      8: 'backspace',
+      9: 'tab',
+      10: 'return',
+      13: 'return',
+      16: 'shift',
+      17: 'ctrl',
+      18: 'alt',
+      19: 'pause',
+      20: 'capslock',
+      27: 'esc',
+      32: 'space',
+      33: 'pageup',
+      34: 'pagedown',
+      35: 'end',
+      36: 'home',
+      37: 'left',
+      38: 'up',
+      39: 'right',
+      40: 'down',
+      45: 'insert',
+      46: 'del',
+      59: ';',
+      61: '=',
+      96: '0',
+      97: '1',
+      98: '2',
+      99: '3',
+      100: '4',
+      101: '5',
+      102: '6',
+      103: '7',
+      104: '8',
+      105: '9',
+      106: '*',
+      107: '+',
+      109: '-',
+      110: '.',
+      111: '/',
+      112: 'f1',
+      113: 'f2',
+      114: 'f3',
+      115: 'f4',
+      116: 'f5',
+      117: 'f6',
+      118: 'f7',
+      119: 'f8',
+      120: 'f9',
+      121: 'f10',
+      122: 'f11',
+      123: 'f12',
+      144: 'numlock',
+      145: 'scroll',
+      173: '-',
+      186: ';',
+      187: '=',
+      188: ',',
+      189: '-',
+      190: '.',
+      191: '/',
+      192: '`',
+      219: '[',
+      220: '\\',
+      221: ']',
+      222: "'",
+      224: 'meta',
     },
 
     // Map of characters to the character they upshift to
     shiftNums: {
-      "`": "~", "1": "!", "2": "@", "3": "#", "4": "$", "5": "%", "6": "^",
-      "7": "&", "8": "*", "9": "(", "0": ")", "-": "_", "=": "+", ";": ":",
-      "'": "\"", ",": "<", ".": ">",  "/": "?",  "\\": "|", "[": "{", "]": "}"
+      '`': '~',
+      '1': '!',
+      '2': '@',
+      '3': '#',
+      '4': '$',
+      '5': '%',
+      '6': '^',
+      '7': '&',
+      '8': '*',
+      '9': '(',
+      '0': ')',
+      '-': '_',
+      '=': '+',
+      ';': ':',
+      "'": '"',
+      ',': '<',
+      '.': '>',
+      '/': '?',
+      '\\': '|',
+      '[': '{',
+      ']': '}',
     },
 
     /**
@@ -110,7 +183,7 @@
     areKeysDown: function(keyArray) {
       var i;
       // If the parameter is a string, split it apart and check each combination.
-      if (typeof keyArray == 'string') {
+      if (typeof keyArray === 'string') {
         var choices = keyArray.split(' ');
         for (i = 0; i < choices.length; i++) {
           if (this.areKeysDown(choices[i].split('+'))) {
@@ -120,9 +193,10 @@
         return false;
       }
       keyArray = keyArray.map(function(s) { return s.toLowerCase(); });
-      var foundControlKey = false, l = this.keysDown.length;
+      var foundControlKey = false,
+          l = this.keysDown.length;
       // The combinations won't match if they aren't the same length.
-      if (l != keyArray.length) {
+      if (l !== keyArray.length) {
         return false;
       }
       // Check for control keys so we know whether order matters.
@@ -162,44 +236,48 @@
   // Respond to bound keyboard events.
   function keyHandler(handleObj) {
     // Only care when a possible input has been specified
-    if (typeof handleObj.data !== "string") {
+    if (typeof handleObj.data !== 'string') {
       return;
     }
 
     var origHandler = handleObj.handler,
-        keys = handleObj.data.toLowerCase().split(" ");
+        keys = handleObj.data.toLowerCase().split(' ');
 
     handleObj.handler = function(event) {
       // Don't fire in text-accepting inputs that we didn't directly bind to
-      if (this !== event.target && (/textarea|select/i.test(event.target.nodeName) ||
-          jQuery.inArray(event.target.type, jQuery.hotkeys.textTypes) !== -1)) {
+      if (this !== event.target && (
+          /textarea|select/i.test(event.target.nodeName) ||
+          jQuery.inArray(event.target.type, jQuery.hotkeys.textTypes) !== -1) ||
+          jQuery(event.target).attr('contenteditable')
+      ) {
         return;
       }
 
       // Keypress represents characters, not special keys
-      var special = event.type !== "keypress" && jQuery.hotkeys.specialKeys[event.which],
+      var special = event.type !== 'keypress' && jQuery.hotkeys.specialKeys[event.which],
           character = String.fromCharCode(event.which).toLowerCase(),
-          modif = "", possible = {};
+          modif = '',
+          possible = {};
 
       // Check combinations (alt|ctrl|command|shift+anything)
-      if (event.altKey && special !== "alt") {
-        modif += "alt+";
+      if (event.altKey && special !== 'alt') {
+        modif += 'alt+';
       }
 
-      if (event.ctrlKey && special !== "ctrl") {
-        modif += "ctrl+";
+      if (event.ctrlKey && special !== 'ctrl') {
+        modif += 'ctrl+';
       }
 
-      if (event.metaKey && !event.ctrlKey && special !== "meta") {
-        modif += "meta+";
+      if (event.metaKey && !event.ctrlKey && special !== 'meta') {
+        modif += 'meta+';
       }
 
-      if (event.metaKey && special !== "meta" && modif.indexOf("alt+ctrl+shift+") !== -1) {
-        modif = modif.replace("alt+ctrl+shift+", "hyper+");
+      if (event.metaKey && special !== 'meta' && modif.indexOf('alt+ctrl+shift+') !== -1) {
+        modif = modif.replace('alt+ctrl+shift+', 'hyper+');
       }
 
-      if (event.shiftKey && special !== "shift") {
-        modif += "shift+";
+      if (event.shiftKey && special !== 'shift') {
+        modif += 'shift+';
       }
 
       if (special) {
@@ -210,14 +288,14 @@
         possible[modif + jQuery.hotkeys.shiftNums[character]] = true;
 
         // "$" can be triggered as "Shift+4" or "Shift+$" or just "$"
-        if (modif === "shift+") {
+        if (modif === 'shift+') {
           possible[jQuery.hotkeys.shiftNums[character]] = true;
         }
       }
 
       // Record which keys are down
-      var i, keyPressed;
-      if (event.type === "keydown") {
+      var i, l, keyPressed;
+      if (event.type === 'keydown') {
         keyPressed = special || character;
         i = jQuery.inArray(keyPressed, jQuery.hotkeys.keysDown);
         if (i === undefined || i < 0) {
@@ -225,7 +303,7 @@
         }
       }
       // Release keys
-      else if (event.type === "keyup") {
+      else if (event.type === 'keyup') {
         keyPressed = special || character;
         i = jQuery.inArray(keyPressed, jQuery.hotkeys.keysDown);
         if (i !== undefined && i !== -1) {
@@ -247,7 +325,7 @@
   }
 
   // Intercept keyboard events
-  jQuery.each(["keydown", "keyup", "keypress"], function() {
+  jQuery.each(['keydown', 'keyup', 'keypress'], function() {
     jQuery.event.special[this] = { add: keyHandler };
   });
 
